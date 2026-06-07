@@ -1,0 +1,21 @@
+{
+  "name": "daily-affirm",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["shared", "server", "client"],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "build": "npm run build -w server && npm run build -w client",
+    "start": "npm run start -w server",
+    "db:seed": "npm run seed -w server",
+    "db:init": "npm run init-db -w server",
+    "build:ios": "npm run build -w client && cd client && npx cap copy && npx cap sync",
+    "open:ios": "cd client && npx cap open ios",
+    "sync:ios": "cd client && npx cap sync"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
