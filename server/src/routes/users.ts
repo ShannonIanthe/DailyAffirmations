@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { getDb } from '../db';
-import { Category } from '../../../shared/types';
+
+type Category = 'finance' | 'love' | 'career' | 'health' | 'mindset';
 
 const router = Router();
 

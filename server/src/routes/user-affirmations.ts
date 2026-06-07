@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { getDb } from '../db';
 import { v4 as uuidv4 } from 'uuid';
-import { Category } from '../../../shared/types';
+
+type Category = 'finance' | 'love' | 'career' | 'health' | 'mindset';
 
 const router = Router();
 
