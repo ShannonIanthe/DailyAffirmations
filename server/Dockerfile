@@ -30,6 +30,4 @@ ENV NODE_ENV=production
 ENV PORT=3001
 ENV DB_PATH=/data/daily-affirm.db
 
-VOLUME [ "/data" ]
-
 CMD ["node", "dist/index.js"]
