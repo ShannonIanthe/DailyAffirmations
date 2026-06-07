@@ -3,8 +3,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y python3 make g++
 
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json ./
+RUN npm install
 
 COPY tsconfig.json ./
 COPY src ./src
@@ -15,8 +15,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y python3 make g++
 
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+COPY package.json ./
+RUN npm install --omit=dev
 
 COPY --from=builder /app/dist ./dist
 
