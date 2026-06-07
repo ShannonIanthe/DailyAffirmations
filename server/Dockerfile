@@ -1,26 +1,22 @@
-# ---- Build Stage ----
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 WORKDIR /app
 
-# Install build dependencies for better-sqlite3 native bindings
-RUN apk add --no-cache python3 make g++
+RUN apt-get update && apt-get install -y python3 make g++
 
-COPY package.json ./
+COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY tsconfig.json ./
-COPY src/ ./src/
+COPY src ./src
 RUN npm run build
 
-# ---- Runtime Stage ----
-FROM node:20-alpine AS runner
+FROM node:20-slim AS runner
 WORKDIR /app
 
-# Install runtime dependencies for SQLite
-RUN apk add --no-cache python3 make g++
+RUN apt-get update && apt-get install -y python3 make g++
 
-COPY package.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 COPY --from=builder /app/dist ./dist
 
